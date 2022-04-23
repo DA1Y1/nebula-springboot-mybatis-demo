@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.graph.mapper.FollowDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.pojo.FollowDO">
+        <result column="_src" property="src" jdbcType="VARCHAR"/>
+        <result column="_dst" property="dst" jdbcType="VARCHAR"/>
+        <result column="degree" property="degree" jdbcType="BIGINT"  />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        degree
+    </sql>
+
+    <!-- 插入点或边 -->
+    <insert id="insert" parameterType="com.example.pojo.FollowDO">
+        insert edge `follow`
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="degree != null">
+                    degree,
+                </if>
+             </trim>
+        values #{src} -> #{dst} :
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="degree != null">
+                    #{degree},
+                </if>
+             </trim>
+    </insert>
+
+    <!-- 批量插入点或边-->
+    <insert id="insertBatch" parameterType="com.example.pojo.FollowDO" >
+        insert edge `follow`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            degree,
+        </trim>
+        values
+        <foreach collection ="list" item="item" separator =",">
+            #{item.src} -> #{item.dst} :
+            <trim prefix="(" suffix=")" suffixOverrides =",">
+                #{item.degree},
+            </trim>
+        </foreach >
+    </insert>
+
+    <!-- 更新点或边 -->
+    <update id="update" parameterType="com.example.pojo.FollowDO">
+        UPDATE edge ON `follow`
+            #{src} -> #{dst}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="degree != null">
+                degree = #{degree},
+            </if>
+        </trim>
+    </update>
+
+
+
+
+    <!-- 查询边 -->
+    <select id="select" resultType="com.example.pojo.FollowDO">
+        FETCH PROP ON `follow` #{src} -> #{dst} yield
+        <trim suffixOverrides=",">
+            follow._src as src,
+            follow._dst as dst,
+            follow.degree as degree,
+        </trim>
+    </select>
+
+    <!-- 批量查询边-->
+    <select id="selectBatch" resultType="com.example.pojo.FollowDO">
+        FETCH PROP ON `follow`
+        <foreach collection="list" item="item" separator =",">
+            #{item.src} -> #{item.dst}
+        </foreach>
+        yield
+        <trim suffixOverrides=",">
+            follow._src as src,
+            follow._dst as dst,
+            follow.degree as degree,
+        </trim>
+    </select>
+
+
+    <!-- 删除点或边 -->
+    <delete id="delete" parameterType="java.lang.String">
+        delete edge `follow` #{src} -> #{dst}
+    </delete>
+
+    <!-- 批量删除点或边 -->
+    <delete id="deleteBatch"
+    parameterType="com.example.pojo.FollowDO">
+        delete edge `follow`
+        <foreach collection="batch" item="item"  separator =",">
+            #{item.src} -> #{item.dst}
+        </foreach>
+    </delete>
+
+
+</mapper>

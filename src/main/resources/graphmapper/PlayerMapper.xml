@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.graph.mapper.PlayerDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.pojo.PlayerDO">
+        <result column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"  />
+        <result column="age" property="age" jdbcType="BIGINT"  />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        name, age
+    </sql>
+
+    <!-- 插入点或边 -->
+    <insert id="insert" parameterType="com.example.pojo.PlayerDO">
+        insert vertex `player`
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="name != null">
+                    name,
+                </if>
+                <if test="age != null">
+                    age,
+                </if>
+             </trim>
+        values #{id} :
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="name != null">
+                    #{name},
+                </if>
+                <if test="age != null">
+                    #{age},
+                </if>
+             </trim>
+    </insert>
+
+    <!-- 批量插入点或边-->
+    <insert id="insertBatch" parameterType="com.example.pojo.PlayerDO" >
+        insert vertex `player`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            name,
+            age,
+        </trim>
+        values
+        <foreach collection ="list" item="item" separator =",">
+            #{item.id} :
+            <trim prefix="(" suffix=")" suffixOverrides =",">
+                #{item.name},
+                #{item.age},
+            </trim>
+        </foreach >
+    </insert>
+
+    <!-- 更新点或边 -->
+    <update id="update" parameterType="com.example.pojo.PlayerDO">
+        UPDATE vertex ON `player`
+            #{id}
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+        </trim>
+    </update>
+
+
+    <!-- 查询点 -->
+    <select id="select" resultType="com.example.pojo.PlayerDO">
+        match (v:`player`) where id(v) == #{id} return
+        <trim suffixOverrides=",">
+            id(v) as id,
+            v.name as name,
+            v.age as age,
+        </trim>
+    </select>
+
+    <!-- 批量查询点 -->
+    <select id="selectBatch" resultType="com.example.pojo.PlayerDO">
+        match (v:`player`) where id(v) in [
+        <foreach collection="list" item="item" separator =",">
+            #{item}
+        </foreach>
+        ] return
+        <trim suffixOverrides=",">
+            id(v) as id,
+            v.name as name,
+            v.age as age,
+        </trim>
+    </select>
+
+
+
+
+    <!-- 删除点或边 -->
+    <delete id="delete" parameterType="java.lang.String">
+        delete vertex #{id}
+    </delete>
+
+    <!-- 批量删除点或边 -->
+    <delete id="deleteBatch"
+    parameterType="java.lang.String">
+        delete vertex
+        <foreach collection="list" item="item"  separator =",">
+            #{item}
+        </foreach>
+    </delete>
+
+
+</mapper>
