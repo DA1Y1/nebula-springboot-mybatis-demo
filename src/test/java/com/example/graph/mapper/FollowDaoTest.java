@@ -33,7 +33,7 @@ class FollowDaoTest {
         PlayerDO peter = PlayerDO.builder().id("peter").name("peter").age(23l).build();
         playerDao.insertBatch(Lists.newArrayList(daiyi, joe, peter));
 
-        FollowDO joe2daiyi = FollowDO.builder().src("joe").dst("daiyi").build();
+        FollowDO joe2daiyi = FollowDO.builder().src("joe").dst("daiyi").degree(100l).build();
         FollowDO daiyi2peter = FollowDO.builder().src("daiyi").dst("peter").build();
         followDao.insertBatch(Lists.newArrayList(joe2daiyi, daiyi2peter));
 
@@ -52,7 +52,7 @@ class FollowDaoTest {
     void insert() {
         this.delete();
 
-        FollowDO joe2daiyi = FollowDO.builder().src("joe").dst("daiyi").degree(100l).build();
+        FollowDO joe2daiyi = FollowDO.builder().src("joe").dst("daiyi").build();
         log.info("follow insert {}", followDao.insert(joe2daiyi));
 
         this.selectBatch();
@@ -62,7 +62,7 @@ class FollowDaoTest {
     void update() {
         log.info("follow info {}", followDao.select("joe", "daiyi"));
 
-        FollowDO update = FollowDO.builder().src("joe").dst("daiyi").degree(100l).build();
+        FollowDO update = FollowDO.builder().src("joe").dst("daiyi").degree(50l).build();
         log.info("follow update {}", followDao.update(update));
 
         log.info("follow info {}", followDao.select("joe", "daiyi"));
@@ -72,6 +72,11 @@ class FollowDaoTest {
     @Test
     void insertBatch() {
         // 见before
+    }
+
+    @Test
+    void selectReturnE() {
+        log.info("follow info {}", followDao.selectReturnE("joe", "daiyi"));
     }
 
     @Test

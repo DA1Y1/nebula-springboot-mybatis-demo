@@ -5,8 +5,8 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.pojo.PlayerDO">
         <result column="id" property="id" jdbcType="VARCHAR"/>
-        <result column="name" property="name" jdbcType="VARCHAR"  />
-        <result column="age" property="age" jdbcType="BIGINT"  />
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="BIGINT"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -16,47 +16,48 @@
 
     <!-- 插入点或边 -->
     <insert id="insert" parameterType="com.example.pojo.PlayerDO">
-        insert vertex `player`
-             <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="name != null">
-                    name,
-                </if>
-                <if test="age != null">
-                    age,
-                </if>
-             </trim>
-        values #{id} :
-            <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="name != null">
-                    #{name},
-                </if>
-                <if test="age != null">
-                    #{age},
-                </if>
-             </trim>
+        insert vertex `player` (
+        <trim suffixOverrides=",">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+        </trim>
+        ) values #{id} :(
+        <trim suffixOverrides=",">
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="age != null">
+                #{age},
+            </if>
+        </trim>
+        )
     </insert>
 
     <!-- 批量插入点或边-->
-    <insert id="insertBatch" parameterType="com.example.pojo.PlayerDO" >
+    <insert id="insertBatch" parameterType="com.example.pojo.PlayerDO">
         insert vertex `player`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             name,
             age,
         </trim>
         values
-        <foreach collection ="list" item="item" separator =",">
+        <foreach collection="list" item="item" separator=",">
             #{item.id} :
-            <trim prefix="(" suffix=")" suffixOverrides =",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
                 #{item.name},
                 #{item.age},
             </trim>
-        </foreach >
+        </foreach>
     </insert>
 
     <!-- 更新点或边 -->
     <update id="update" parameterType="com.example.pojo.PlayerDO">
         UPDATE vertex ON `player`
-            #{id}
+        #{id}
         <trim prefix="set" suffixOverrides=",">
             <if test="name != null">
                 name = #{name},
@@ -81,7 +82,7 @@
     <!-- 批量查询点 -->
     <select id="selectBatch" resultType="com.example.pojo.PlayerDO">
         match (v:`player`) where id(v) in [
-        <foreach collection="list" item="item" separator =",">
+        <foreach collection="list" item="item" separator=",">
             #{item}
         </foreach>
         ] return
@@ -93,21 +94,27 @@
     </select>
 
 
-
-
     <!-- 删除点或边 -->
     <delete id="delete" parameterType="java.lang.String">
-        delete vertex #{id}
+        delete
+        vertex
+        #{id}
     </delete>
 
     <!-- 批量删除点或边 -->
     <delete id="deleteBatch"
-    parameterType="java.lang.String">
+            parameterType="java.lang.String">
         delete vertex
-        <foreach collection="list" item="item"  separator =",">
+        <foreach collection="list" item="item" separator=",">
             #{item}
         </foreach>
     </delete>
+
+    <!--以上代码自动生成-->
+
+    <select id="selectReturnV" resultMap="BaseResultMap">
+        match (v:`player`) where id(v) == #{id} return v
+    </select>
 
 
 </mapper>

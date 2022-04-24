@@ -21,7 +21,6 @@ import javax.annotation.Resource;
 @Slf4j
 class PlayerDaoTest {
 
-
     @Resource
     private PlayerDao playerDao;
 
@@ -30,7 +29,6 @@ class PlayerDaoTest {
         PlayerDO daiyi = PlayerDO.builder().id("daiyi").name("daiyi").age(22l).build();
         PlayerDO joe = PlayerDO.builder().id("joe").name("joe").age(24l).build();
         playerDao.insertBatch(Lists.newArrayList(daiyi, joe));
-
     }
 
     @AfterEach
@@ -63,6 +61,11 @@ class PlayerDaoTest {
     @Test
     void select() {
         log.info("player info {}", playerDao.select("daiyi"));
+    }
+
+    @Test
+    void selectReturnV() {
+        log.info("player info {}", playerDao.selectReturnV("daiyi"));
     }
 
     @Test

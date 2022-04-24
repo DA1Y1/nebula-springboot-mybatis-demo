@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.example.pojo.FollowDO">
         <result column="_src" property="src" jdbcType="VARCHAR"/>
         <result column="_dst" property="dst" jdbcType="VARCHAR"/>
-        <result column="degree" property="degree" jdbcType="BIGINT"  />
+        <result column="degree" property="degree" jdbcType="BIGINT"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -16,47 +16,46 @@
 
     <!-- 插入点或边 -->
     <insert id="insert" parameterType="com.example.pojo.FollowDO">
-        insert edge `follow`
-             <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="degree != null">
-                    degree,
-                </if>
-             </trim>
-        values #{src} -> #{dst} :
-            <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="degree != null">
-                    #{degree},
-                </if>
-             </trim>
+        insert edge `follow`(
+        <trim suffixOverrides=",">
+            <if test="degree != null">
+                degree,
+            </if>
+        </trim>
+        ) values #{src} -> #{dst} :(
+        <trim suffixOverrides=",">
+            <if test="degree != null">
+                #{degree},
+            </if>
+        </trim>
+        )
     </insert>
 
     <!-- 批量插入点或边-->
-    <insert id="insertBatch" parameterType="com.example.pojo.FollowDO" >
+    <insert id="insertBatch" parameterType="com.example.pojo.FollowDO">
         insert edge `follow`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             degree,
         </trim>
         values
-        <foreach collection ="list" item="item" separator =",">
+        <foreach collection="list" item="item" separator=",">
             #{item.src} -> #{item.dst} :
-            <trim prefix="(" suffix=")" suffixOverrides =",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
                 #{item.degree},
             </trim>
-        </foreach >
+        </foreach>
     </insert>
 
     <!-- 更新点或边 -->
     <update id="update" parameterType="com.example.pojo.FollowDO">
         UPDATE edge ON `follow`
-            #{src} -> #{dst}
+        #{src} -> #{dst}
         <trim prefix="set" suffixOverrides=",">
             <if test="degree != null">
                 degree = #{degree},
             </if>
         </trim>
     </update>
-
-
 
 
     <!-- 查询边 -->
@@ -72,7 +71,7 @@
     <!-- 批量查询边-->
     <select id="selectBatch" resultType="com.example.pojo.FollowDO">
         FETCH PROP ON `follow`
-        <foreach collection="list" item="item" separator =",">
+        <foreach collection="list" item="item" separator=",">
             #{item.src} -> #{item.dst}
         </foreach>
         yield
@@ -91,12 +90,17 @@
 
     <!-- 批量删除点或边 -->
     <delete id="deleteBatch"
-    parameterType="com.example.pojo.FollowDO">
+            parameterType="com.example.pojo.FollowDO">
         delete edge `follow`
-        <foreach collection="batch" item="item"  separator =",">
+        <foreach collection="batch" item="item" separator=",">
             #{item.src} -> #{item.dst}
         </foreach>
     </delete>
 
+    <!--以上代码自动生成-->
+
+    <select id="selectReturnE" resultMap="BaseResultMap">
+        MATCH (v:player{name:#{srcName}})-[e]-(v2:player{name:#{dstName}}) RETURN e;
+    </select>
 
 </mapper>

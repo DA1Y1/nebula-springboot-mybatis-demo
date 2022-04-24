@@ -1,7 +1,9 @@
 package com.example.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -9,11 +11,14 @@ import java.util.List;
 
 /**
  * 查询边路径
+ *
  * @author DAIYI
  * @since 2021-09-10
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @Accessors(chain = true)
 public class PathDO implements Serializable {

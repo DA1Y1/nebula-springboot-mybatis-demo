@@ -65,6 +65,15 @@ public interface PlayerDao {
      */
     int deleteBatch(List<String> batch);
 
+    // 以上代码自动生成
+
+    /**
+     * 根据id查询实体
+     * @param id 实体id
+     * @return entity
+     */
+    PlayerDO selectReturnV(String id);
+
 
 
 

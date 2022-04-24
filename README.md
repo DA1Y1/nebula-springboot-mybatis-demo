@@ -4,9 +4,9 @@
 
 ```sql
 CREATE TAG IF NOT EXISTS player(name string, age int);
-
 CREATE EDGE IF NOT EXISTS follow(degree int);
-
+create tag index player_index_0 on player();
+create tag index player_index_1 on player(name(20));
 ```
 
 
@@ -16,11 +16,14 @@ CREATE EDGE IF NOT EXISTS follow(degree int);
 
 # ATTENTION
 
-1.目前驱动支持nebula2.5.0版本
+目前驱动支持nebula 2.5.0版本
 
-2.支持mybatis（resultType，resultMap）
+支持mybatis xml (resultType|resultMap)，sql语句return (v|e)
 
-3.图数据库查询支持点边操作以及路径查询
+demo提供基础点边操作以及路径查询
+
+mybatis返回结果不支持包含多tag
+
 
 # dao代码生成插件
 

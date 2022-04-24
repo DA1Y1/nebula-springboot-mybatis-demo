@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.graph.mapper.PathDao">
 
-    <resultMap id="basePathResultMap" type="com.example.pojo.PathDO">
+    <resultMap id="BasePathResultMap" type="com.example.pojo.PathDO">
         <result column="_start" property="startNode"/>
         <result column="_end" property="endNode"/>
         <result column="_nodes" property="nodes" typeHandler="com.example.config.mybatis.StringListTypeHandler"/>
@@ -10,7 +10,7 @@
     </resultMap>
 
 
-    <select id="selectPath" resultMap="basePathResultMap" parameterType="java.lang.String">
+    <select id="selectPath" resultMap="BasePathResultMap" parameterType="java.lang.String">
         FIND ALL PATH FROM #{param1} TO #{param2} OVER *
     </select>
 

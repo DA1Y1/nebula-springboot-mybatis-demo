@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author DAIYI
@@ -18,6 +18,7 @@ public interface FollowDao {
 
     /**
      * mapper 插入操作
+     *
      * @param entity 插入实体
      * @return 是否成功
      */
@@ -25,6 +26,7 @@ public interface FollowDao {
 
     /**
      * mapper 更新操作
+     *
      * @param entity 更新实体
      * @return 是否成功
      */
@@ -32,6 +34,7 @@ public interface FollowDao {
 
     /**
      * 批量插入
+     *
      * @param batch 实体列表
      * @return i
      */
@@ -40,6 +43,7 @@ public interface FollowDao {
 
     /**
      * 根据起始点查询边属性
+     *
      * @param src 起始点id
      * @param dst 终止点id
      * @return entity
@@ -48,6 +52,7 @@ public interface FollowDao {
 
     /**
      * 根据起始点列表查询边属性
+     *
      * @param batch 实体id列表
      * @return entity list
      */
@@ -55,6 +60,7 @@ public interface FollowDao {
 
     /**
      * 批量删除
+     *
      * @param src 边起点
      * @param dst 边终点
      * @return i
@@ -63,10 +69,22 @@ public interface FollowDao {
 
     /**
      * 批量删除
+     *
      * @param batch 边列表
      * @return i
      */
     int deleteBatch(List<FollowDO> batch);
+
+    // 以上代码自动生成
+
+    /**
+     * 根据起始点查询边属性
+     *
+     * @param srcName 起始点id
+     * @param dstName 终止点id
+     * @return entity
+     */
+    FollowDO selectReturnE(String srcName, String dstName);
 
 
 }
