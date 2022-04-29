@@ -36,7 +36,6 @@ class FollowDaoTest {
         FollowDO joe2daiyi = FollowDO.builder().src("joe").dst("daiyi").degree(100l).build();
         FollowDO daiyi2peter = FollowDO.builder().src("daiyi").dst("peter").build();
         followDao.insertBatch(Lists.newArrayList(joe2daiyi, daiyi2peter));
-
     }
 
     @AfterEach
@@ -66,12 +65,11 @@ class FollowDaoTest {
         log.info("follow update {}", followDao.update(update));
 
         log.info("follow info {}", followDao.select("joe", "daiyi"));
-
     }
 
     @Test
     void insertBatch() {
-        // 见before
+        log.info("见before()");
     }
 
     @Test
@@ -100,6 +98,6 @@ class FollowDaoTest {
 
     @Test
     void deleteBatch() {
-        // 见after
+        log.info("见after()");
     }
 }

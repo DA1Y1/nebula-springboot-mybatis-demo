@@ -3,6 +3,7 @@
 ## 1 数据库初始化
 
 ```sql
+create space basketballplayer(partition_num=10,replica_factor=1,vid_type=fixed_string(32));
 CREATE TAG IF NOT EXISTS player(name string, age int);
 CREATE EDGE IF NOT EXISTS follow(degree int);
 create tag index player_index_0 on player();

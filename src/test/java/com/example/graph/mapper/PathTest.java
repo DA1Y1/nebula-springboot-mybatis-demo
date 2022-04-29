@@ -38,7 +38,6 @@ class PathTest {
         FollowDO joe2daiyi = FollowDO.builder().src("joe").dst("daiyi").build();
         FollowDO daiyi2peter = FollowDO.builder().src("daiyi").dst("peter").build();
         followDao.insertBatch(Lists.newArrayList(joe2daiyi, daiyi2peter));
-
     }
 
     @AfterEach

@@ -55,7 +55,7 @@ class PlayerDaoTest {
 
     @Test
     void insertBatch() {
-        // 见before
+        log.info("见before()");
     }
 
     @Test
@@ -82,6 +82,6 @@ class PlayerDaoTest {
 
     @Test
     void deleteBatch() {
-        // 见after
+        log.info("见after()");
     }
 }

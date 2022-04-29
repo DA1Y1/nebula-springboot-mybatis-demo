@@ -3,9 +3,9 @@ spring:
     graph:
       type: com.zaxxer.hikari.HikariDataSource
       driverClassName: com.vesoft.nebula.jdbc.GraphDriver
-      url: jdbc:graph://ip:host/space?characterEncoding=utf8
-      username: username
-      password: password
+      url: jdbc:graph://localhost:9669/basketballplayer?characterEncoding=utf8
+      username: root
+      password: 123
       hikari:
         minimum-idle: 5
         # 空闲连接存活最大时间，默认600000（10分钟）

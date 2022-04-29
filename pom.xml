@@ -62,9 +62,9 @@
         <dependency>
             <groupId>com.mininglamp</groupId>
             <artifactId>nebula-mybatis</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>0.0.2</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/nebula-mybatis-0.0.2-SNAPSHOT.jar</systemPath>
+            <systemPath>${basedir}/lib/nebula-mybatis-0.0.2.jar</systemPath>
         </dependency>
 
         <dependency>
