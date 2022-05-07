@@ -1,4 +1,4 @@
-package com.example.graph.mapper;
+package com.example.dao;
 
 import com.example.pojo.PathDO;
 import org.springframework.stereotype.Repository;

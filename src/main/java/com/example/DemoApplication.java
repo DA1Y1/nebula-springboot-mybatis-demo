@@ -1,13 +1,15 @@
 package com.example;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NebulaSpringbootMybatisDemoApplication {
+@MapperScan("com.example.dao")
+public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NebulaSpringbootMybatisDemoApplication.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
 
 }

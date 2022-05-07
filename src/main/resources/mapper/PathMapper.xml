@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.graph.mapper.PathDao">
+<mapper namespace="com.example.dao.PathDao">
 
     <resultMap id="BasePathResultMap" type="com.example.pojo.PathDO">
         <result column="_start" property="startNode"/>
         <result column="_end" property="endNode"/>
-        <result column="_nodes" property="nodes" typeHandler="com.example.config.mybatis.StringListTypeHandler"/>
-        <result column="_relation_ships" property="relationShips" typeHandler="com.example.config.mybatis.RelationTypeHandler"/>
+        <result column="_nodes" property="nodes" typeHandler="com.example.config.StringListTypeHandler"/>
+        <result column="_relation_ships" property="relationShips" typeHandler="com.example.config.RelationTypeHandler"/>
     </resultMap>
 
 
