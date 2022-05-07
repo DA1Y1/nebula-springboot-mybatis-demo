@@ -2,8 +2,8 @@ spring:
   datasource:
     graph:
       type: com.zaxxer.hikari.HikariDataSource
-      driverClassName: com.vesoft.nebula.jdbc.GraphDriver
-      url: jdbc:graph://localhost:9669/basketballplayer?characterEncoding=utf8
+      driverClassName: com.vesoft.nebula.jdbc.NebulaDriver
+      url: jdbc:nebula://localhost:9669/basketballplayer?characterEncoding=utf8
       username: root
       password: 123
       hikari:
